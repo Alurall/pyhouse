@@ -4,8 +4,8 @@ import disnake
 from disnake.ext import commands
 
 class Dropdown(disnake.ui.Select):
-    def __init__(self, options, placeholder):
-
+    def __init__(self, options, placeholder, msg):
+        self.msg = msg
         # Set the options that will be presented inside the dropdown
         option_list = []
         for option in options:
@@ -44,15 +44,16 @@ class Dropdown(disnake.ui.Select):
         # the user's favourite colour or choice. The self object refers to the
         # Select object, and the values attribute gets a list of the user's
         # selected options. We only want the first one.
-        names = ''
-        for value in self.values:
-            names += "**"+value+"**" if names == '' else (" and " + "**"+value+"**")
-        await interaction.response.send_message(f"You picked {names}")
+        await self.msg.msg.edit(view=self.msg.msg.view)
+        #names = ''
+        #for value in self.values:
+        #    names += "**"+value+"**" if names == '' else (" and " + "**"+value+"**")
+        #await interaction.response.send_message(f"You picked {names}")
 
 
 class DropdownView(disnake.ui.View):
-    def __init__(self, options, placeholder):
+    def __init__(self, options, placeholder, msg):
         super().__init__()
 
         # Adds the dropdown to our view object.
-        self.add_item(Dropdown(options, placeholder))
+        self.add_item(Dropdown(options, placeholder, msg))

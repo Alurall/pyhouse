@@ -8,8 +8,6 @@ from disnake.ext import commands
 from database import ClientDB
 from cogs.queue import QueueCog
 
-#bot = commands.Bot(command_prefix=commands.when_mentioned)
-
 
 class PyHouse(commands.Bot):
 	def __init__(self, **options):
@@ -21,6 +19,9 @@ class PyHouse(commands.Bot):
 
 		self.logger.info("Loading Cogs...")
 		self.add_cog(QueueCog(self))
+
+		#hardcoded vars
+		self.queue_chid = 1010304634050584739
 		
 
 	async def on_ready(self):
