@@ -9,6 +9,7 @@ from database import ClientDB
 from cogs.queue import QueueCog
 
 
+
 class PyHouse(commands.Bot):
 	def __init__(self, **options):
 		super().__init__(commands.when_mentioned, **options)
@@ -20,9 +21,15 @@ class PyHouse(commands.Bot):
 		self.logger.info("Loading Cogs...")
 		self.add_cog(QueueCog(self))
 
-		#hardcoded vars
-		self.queue_chid = 1010304634050584739
-		
+		# Load variables
+		from config import ranks, roles, rolesB, queueChannelId, guildId
+		self.roles = roles
+		self.rolesB = rolesB
+		self.ranks = ranks
+		self.queueChannelId = queueChannelId
+		self.guildId = guildId		
+
+		self.ephemerals = {}
 
 	async def on_ready(self):
 		self.logger.info("Connecting to the DB...")
@@ -30,9 +37,13 @@ class PyHouse(commands.Bot):
 		self.session.connect()
 		self.session.printstuff()
 	
-	@commands.slash_command()
-	async def autocomplete1(inter: disnake.CommandInteraction, language: str):
-		await inter.response.send_message("hi1")
+	def get_eph(self, user):
+		if user in self.ephemerals:
+			return self.ephemerals[user]
+		return False
+
+	def add_eph(self, user, id):
+		self.ephemerals[user] = id
 
 	
 	@commands.command()
