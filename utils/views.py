@@ -85,13 +85,16 @@ class Button(disnake.ui.View):
     def __init__(self, selector, bot, **options):
         self.selector = selector
         self.bot = bot
-        super().__init__(**options)
+        super().__init__(timeout=None, **options)
         
     @disnake.ui.button(label="Click me!", style=disnake.ButtonStyle.green)
     async def confirm(self, button: disnake.ui.Button, interaction: disnake.MessageInteraction):
         await interaction.response.send_message("", view=self.selector(interaction.user.id), ephemeral=True)
         if self.bot.get_eph(interaction.user.id):
-            await self.bot.get_eph(interaction.user.id).edit_original_message(content="dismiss me", view=None, embed=None)
+            try:
+                await self.bot.get_eph(interaction.user.id).edit_original_message(content="dismiss me", view=None, embed=None)
+            except disnake.errors.HTTPException as e:
+                print(e)
         self.bot.add_eph(interaction.user.id, interaction)
 
 class View2(disnake.ui.View):
