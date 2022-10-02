@@ -1,0 +1,19 @@
+Matchmaking algorithm
+ - Matching
+ - Points
+ - Picking captains (?)
+
+Keeping track of ephemerals
+ - Custom Id to queue table
+ - Recover table on restart by Id
+
+
+Queue
+ - Pick teams phase
+ - Abort game
+ - win/defeat after 10 mins
+
+Leaderboard
+ - TODO
+
+Timeouts

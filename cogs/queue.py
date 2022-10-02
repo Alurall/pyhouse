@@ -4,11 +4,11 @@ from utils.views import View, View2, RoleSelect, Button
 from utils.misc import BoardEmbed
 
 class QueueCog(commands.Cog):
-	queue = {}
-	#	148922387587399680: 10,
-	#	339368436624785408: 31,
-	#	777198470276317204: 16,
-	#}
+	queue = {
+		148922387587399680: 10,
+		339368436624785408: 31,
+		777198470276317204: 16,
+	}
 
 	def __init__(self, bot):
 		self.bot = bot # sets the client variable so we can use it in cogs
